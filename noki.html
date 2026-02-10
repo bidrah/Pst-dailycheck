@@ -15,6 +15,38 @@
         h2, h3 {
             text-align: center;
         }
+        .home-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 16px 0 20px;
+            flex-wrap: wrap;
+        }
+        .home-buttons button {
+            border: none;
+            background: #1e88e5;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .home-buttons button:hover {
+            background: #166bb4;
+        }
+        .home-content {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+        .home-content p {
+            margin: 0;
+            color: #444;
+            font-size: 14px;
+            line-height: 1.4;
+        }
         .checklist {
             list-style: none;
             padding: 0;
@@ -44,6 +76,16 @@
 </head>
 <body>
     <h2>Daily Inspection Checklist</h2>
+    <div class="home-buttons">
+        <button type="button" data-section="about">About</button>
+        <button type="button" data-section="more">More</button>
+        <button type="button" data-section="contact">Contact</button>
+    </div>
+
+    <div class="home-content" id="homeContent">
+        <p>Welcome! Use this checklist to track daily inspection completion at each location.</p>
+    </div>
+
     <h3 id="dateTitle"></h3>
     <ul class="checklist" id="checklist">
         <!-- Locations will be populated here -->
@@ -58,6 +100,20 @@
 
         const checklist = document.getElementById("checklist");
         const dateTitle = document.getElementById("dateTitle");
+        const homeContent = document.getElementById("homeContent");
+
+        const homeSections = {
+            about: "This homepage helps your team maintain a consistent daily inspection routine.",
+            more: "Mark each location after inspection, and your check, name, and time are saved automatically.",
+            contact: "Need support? Reach the inspection coordinator at support@example.com or +91-90000-00000."
+        };
+
+        document.querySelectorAll(".home-buttons button").forEach(button => {
+            button.addEventListener("click", () => {
+                const section = button.dataset.section;
+                homeContent.innerHTML = `<p>${homeSections[section]}</p>`;
+            });
+        });
 
         function updateDateTitle() {
             const now = new Date();
